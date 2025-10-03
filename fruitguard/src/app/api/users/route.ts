@@ -1,4 +1,5 @@
 const baseUrl=process.env.BASE_URL;
+
 export async function GET(){
  try{
     const response =await fetch(`${baseUrl}/users?user_type=farmer`);

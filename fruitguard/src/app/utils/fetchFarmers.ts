@@ -4,7 +4,7 @@ export async function fetchFarmers() {
   try {
     const response = await fetch(baseUrl);
     if (!response.ok) {
-      throw new Error("couldn’t load the farmers list:" + response.statusText);
+      throw new Error("couldn't load the farmers list:" + response.statusText);
     }
     const result = await response.json();
     return result;

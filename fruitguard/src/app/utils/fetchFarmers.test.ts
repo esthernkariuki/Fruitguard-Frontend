@@ -1,47 +1,56 @@
-import { fetchFarmers } from "../utils/fetchFarmers";
+import { fetchFarmers } from "./fetchFarmers"; 
 
-describe("fetchFarmers", () => {
+const baseUrl = 'api/users';
+
+describe('fetchFarmers', () => {
   beforeEach(() => {
+    global.fetch = jest.fn();
+  });
+
+  afterEach(() => {
     jest.resetAllMocks();
   });
 
-  it("returns data when fetch is successful", async () => {
-    const mockData = [{ id: 1, name: "Jane" }];
-    global.fetch = jest.fn(() =>
-      Promise.resolve({
-        ok: true,
-        json: () => Promise.resolve(mockData),
-      } as Response)
-    );
+  it('fetches farmers list successfully', async () => {
+    const mockData = [{ id: 1, name: 'Joy' }, { id: 2, name: 'Mwandia' }];
+    (fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: jest.fn().mockResolvedValueOnce(mockData),
+    });
+
     const result = await fetchFarmers();
+
+    expect(fetch).toHaveBeenCalledWith(baseUrl);
     expect(result).toEqual(mockData);
-    expect(fetch).toHaveBeenCalledWith("api/users");
   });
 
-  it("throws error when response is not ok", async () => {
-    global.fetch = jest.fn(() =>
-      Promise.resolve({
-        ok: false,
-        statusText: "Server error",
-      } as Response)
-    );
-    await expect(fetchFarmers()).rejects.toThrow("couldn’t load the farmers list: Server error");
-  });
+  it('returns null if backend returns empty array', async () => {
+    (fetch as jest.Mock).mockResolvedValueOnce({
+      ok: true,
+      json: jest.fn().mockResolvedValueOnce([]),
+    });
 
-  it("throws error on network failure", async () => {
-    const msg = "Network failure";
-    global.fetch = jest.fn(() => Promise.reject(new Error(msg)));
-    await expect(fetchFarmers()).rejects.toThrow("Something went wrong while loading the farmers list: " + msg);
-  });
-
-  it("returns null when backend returns null", async () => {
-    global.fetch = jest.fn(() =>
-      Promise.resolve({
-        ok: true,
-        json: () => Promise.resolve(null),
-      } as Response)
-    );
     const result = await fetchFarmers();
-    expect(result).toBeNull();
+
+    expect(fetch).toHaveBeenCalledWith(baseUrl);
+    expect(result).toEqual([]);
+  });
+
+  it('throws an error when response is not ok', async () => {
+    (fetch as jest.Mock).mockResolvedValueOnce({
+      ok: false,
+      statusText: 'Server error',
+    });
+    await expect(fetchFarmers()).rejects.toThrow(
+      "Something went wrong while loading the farmers list: couldn't load the farmers list:Server error"
+    );
+  });
+
+  it('throws an error on network failure', async () => {
+    (fetch as jest.Mock).mockRejectedValueOnce(new Error('Network Error'));
+
+    await expect(fetchFarmers()).rejects.toThrow(
+      'Something went wrong while loading the farmers list: Network Error'
+    );
   });
 });

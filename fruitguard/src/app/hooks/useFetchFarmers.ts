@@ -1,14 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchFarmers } from "../utils/fetchFarmers";
-
-export interface Farmer {
-  id: number;
-  first_name: string;
-  last_name: string;
-  location?: string;
-  phone_number?: string;
-  number_of_traps?: number;
-}
+import { Farmer } from "../utils/types";
 
 export function useFetchFarmers() {
   const [farmers, setFarmers] = useState<Farmer[]>([]);

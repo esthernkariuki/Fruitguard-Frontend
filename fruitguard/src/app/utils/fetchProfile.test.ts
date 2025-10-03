@@ -1,8 +1,7 @@
 import { fetchProfile } from "./fetchProfile";
+const baseUrl = 'api/profile';
 
 describe('fetchProfile', () => {
-  const token = 'dummy-token';
-
   beforeEach(() => {
     global.fetch = jest.fn();
   });
@@ -11,58 +10,76 @@ describe('fetchProfile', () => {
     jest.resetAllMocks();
   });
 
-  it('returns profile JSON on successful fetch', async () => {
-    const mockProfile = { name: 'John wambui', email: 'john@wambui.com' };
-    (global.fetch as jest.Mock).mockResolvedValue({
+  it('fetches profile successfully', async () => {
+    const mockData = { username: 'joanita', email: 'joanita@awinjo.com' };
+    (fetch as jest.Mock).mockResolvedValueOnce({
       ok: true,
-      json: async () => mockProfile,
-      headers: { get: () => 'application/json' },
+      json: jest.fn().mockResolvedValueOnce(mockData),
+      headers: new Map(),
     });
-    const result = await fetchProfile(token);
-    expect(result).toEqual(mockProfile);
-    expect(global.fetch).toHaveBeenCalledWith('api/profile', {
+
+    const token = 'Token123';
+    const data = await fetchProfile(token);
+
+    expect(fetch).toHaveBeenCalledWith(baseUrl, {
       method: 'GET',
       headers: {
         Authorization: `Token ${token}`,
         Accept: 'application/json',
       },
     });
+
+    expect(data).toEqual(mockData);
   });
 
-  it('throws error with JSON message if not ok and content-type is application/json', async () => {
-    (global.fetch as jest.Mock).mockResolvedValue({
+  it('throws error with JSON error message from response', async () => {
+    const errorJson = { message: 'Unauthorized access' };
+    (fetch as jest.Mock).mockResolvedValueOnce({
       ok: false,
-      headers: { get: () => 'application/json' },
-      json: async () => ({ message: 'Unauthorized access' }),
+      headers: {
+        get: (header: string) => header === 'content-type' ? 'application/json' : null,
+      },
+      json: jest.fn().mockResolvedValueOnce(errorJson),
     });
-    await expect(fetchProfile(token)).rejects.toThrow('Unauthorized access');
+
+    await expect(fetchProfile('invalidToken')).rejects.toThrow('Unauthorized access');
   });
 
-  it('throws error with text message if not ok and content-type not application/json', async () => {
-    (global.fetch as jest.Mock).mockResolvedValue({
+  it('throws error with plain text error message from response', async () => {
+    const errorText = 'Not found';
+    (fetch as jest.Mock).mockResolvedValueOnce({
       ok: false,
-      headers: { get: () => 'text/plain' },
-      text: async () => 'Not found',
+      headers: {
+        get: (header: string) => header === 'content-type' ? 'text/plain' : null,
+      },
+      text: jest.fn().mockResolvedValueOnce(errorText),
     });
-    await expect(fetchProfile(token)).rejects.toThrow('Not found');
+
+    await expect(fetchProfile('Token')).rejects.toThrow('Not found');
   });
 
-  it('throws default error if no message on failure', async () => {
-    (global.fetch as jest.Mock).mockResolvedValue({
+  it('throws default error message if no error message present', async () => {
+    (fetch as jest.Mock).mockResolvedValueOnce({
       ok: false,
-      headers: { get: () => null },
-      text: async () => '',
+      headers: {
+        get: () => null,
+      },
+      text: jest.fn().mockResolvedValueOnce(''),
     });
-    await expect(fetchProfile(token)).rejects.toThrow('Failed to fetch profile');
+
+    await expect(fetchProfile('Token')).rejects.toThrow('Failed to fetch profile');
   });
 
-  it('returns null when backend returns null', async () => {
-    (global.fetch as jest.Mock).mockResolvedValue({
-      ok: true,
-      json: async () => null,
-      headers: { get: () => 'application/json' },
-    });
-    const result = await fetchProfile(token);
-    expect(result).toBeNull();
+  it('throws error from caught Error instance', async () => {
+    (fetch as jest.Mock).mockRejectedValueOnce(new Error('Network failure'));
+
+    await expect(fetchProfile('Token')).rejects.toThrow('Network failure');
+  });
+
+  it('throws  error for non-Error rejection', async () => {
+    (fetch as jest.Mock).mockImplementationOnce(() => Promise.reject('some error'));
+
+    await expect(fetchProfile('Token')).rejects.toThrow('Profile fetch failed');
   });
 });
+

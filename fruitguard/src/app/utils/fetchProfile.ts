@@ -6,9 +6,11 @@ export async function fetchProfile(token: string) {
       method: "GET",
       headers: {
         Authorization: `Token ${token}`,
-        Accept: "application/json", },
+        Accept: "application/json",
+      },
     });
-  if (!response.ok) {
+
+    if (!response.ok) {
       const contentType = response.headers.get("content-type");
       let errorMessage = "Failed to fetch profile";
 
@@ -22,8 +24,8 @@ export async function fetchProfile(token: string) {
       throw new Error(errorMessage);
     }
 
-    return response.json();}
-  catch (error) {
-    throw error;
+    return response.json();
+  } catch (error) {
+    throw new Error(error instanceof Error ? error.message : "Profile fetch failed");
   }
 }

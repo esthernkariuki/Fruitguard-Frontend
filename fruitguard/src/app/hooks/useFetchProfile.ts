@@ -1,14 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchProfile } from "../utils/fetchProfile";
+import { Profile } from "../utils/types";
 
-export interface Profile {
-  id: number;
-  first_name: string;
-  last_name: string;
-  email: string;
-  profile_image?: string;
-  user_type?: string; 
-}
 
 export default function useProfile(token: string) {
   const [profile, setProfile] = useState<Profile |null >(null);

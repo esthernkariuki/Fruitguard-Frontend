@@ -55,7 +55,8 @@ describe('ProfilePage', () => {
         last_name: null,
         email: null,
         profile_image: null,
-        user_type: null,},
+        user_type: null,
+      },
       loading: false,
       error: null,
     });
@@ -97,8 +98,9 @@ describe('ProfilePage', () => {
 
   test('shows updating message and calls updateProfile on form submit', async () => {
     mockedUseProfile.mockReturnValue({
-      profile: { first_name: 'Esther',last_name: 'Nyambura',email: 'esthernyambura@example.com',profile_image: '',user_type: 'Agrovet',},
-       loading: false, error: null,});
+      profile: { first_name: 'Esther', last_name: 'Nyambura', email: 'esthernyambura@example.com', profile_image: '', user_type: 'Agrovet', },
+      loading: false, error: null,
+    });
     mockedUpdateProfile.mockImplementation(() => new Promise(resolve => setTimeout(resolve, 100)));
     render(<ProfilePage />);
     const user = userEvent.setup();
@@ -112,8 +114,9 @@ describe('ProfilePage', () => {
 
   test('shows update error message on submission failure', async () => {
     mockedUseProfile.mockReturnValue({
-      profile: {first_name: 'Esther',last_name: 'Nyambura',email: 'esthernyambura@example.com',profile_image: '',user_type: 'Agrovet', },
-      loading: false,error: null,});
+      profile: { first_name: 'Esther', last_name: 'Nyambura', email: 'esthernyambura@example.com', profile_image: '', user_type: 'Agrovet', },
+      loading: false, error: null,
+    });
     mockedUpdateProfile.mockRejectedValue(new Error('Update failed'));
     render(<ProfilePage />);
     const user = userEvent.setup();

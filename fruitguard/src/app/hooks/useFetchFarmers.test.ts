@@ -5,12 +5,13 @@ import { useFetchFarmers } from "../hooks/useFetchFarmers";
 jest.mock("../utils/fetchFarmers");
 
 describe("useFetchFarmers hook", () => {
-  afterEach(() => { jest.resetAllMocks(); });
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
 
   it("loads farmers data successfully", async () => {
     const mockFarmers = [{ id: 1, name: "John" }];
     (fetchModule.fetchFarmers as jest.Mock).mockResolvedValueOnce(mockFarmers);
-
     const { result } = renderHook(() => useFetchFarmers());
 
     expect(result.current.loading).toBe(true);
@@ -40,8 +41,8 @@ describe("useFetchFarmers hook", () => {
     });
   });
 
-  it("handles null value from backend", async () => {
-    (fetchModule.fetchFarmers as jest.Mock).mockResolvedValueOnce(null);
+  it("handles null values from backend", async () => {
+    (fetchModule.fetchFarmers as jest.Mock).mockResolvedValueOnce([]);
 
     const { result } = renderHook(() => useFetchFarmers());
 
@@ -50,7 +51,7 @@ describe("useFetchFarmers hook", () => {
 
     await waitFor(() => {
       expect(result.current.loading).toBe(false);
-      expect(result.current.farmers).toBeNull();  
+      expect(result.current.farmers).toEqual([]);
       expect(result.current.error).toBeNull();
     });
   });

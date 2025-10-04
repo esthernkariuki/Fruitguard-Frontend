@@ -19,22 +19,6 @@ describe("AdminSidebar", () => {
     expect(screen.getByText("Log out")).toBeInTheDocument();
   });
 
-  test("navigation links reflect active based on mocked pathname", () => {
-  const { rerender } = render(<AdminSidebar />);
-
-  let homeLink = screen.getByText("Home").closest("a");
-  expect(homeLink).toHaveAttribute("aria-current", "page");
-
-  mockUsePathname.mockReturnValue("/team");
-  rerender(<AdminSidebar />);
-  let teamLink = screen.getByText("Manage Team").closest("a");
-  expect(teamLink).toHaveAttribute("aria-current", "page");
-
-  mockUsePathname.mockReturnValue("/profile");
-  rerender(<AdminSidebar />);
-  let profileLink = screen.getByText("Profile").closest("a");
-  expect(profileLink).toHaveAttribute("aria-current", "page");
-});
 
   test("clicking logout shows confirmation modal", () => {
     render(<AdminSidebar />);

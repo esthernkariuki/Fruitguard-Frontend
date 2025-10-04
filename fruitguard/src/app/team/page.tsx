@@ -35,7 +35,7 @@ export default function Team() {
               <div className="relative flex items-center w-full max-w-md mb-6">
                <input type="text" placeholder="Search by name,location,phone number" value={search} onChange={(e) => { setSearch(e.target.value); setCurrentPage(1);}}
                 className="border border-gray-700 rounded-lg px-10 py-2 w-full text-[#683929] bg-white shadow-sm" />
-                <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-700 pointer-events-none" size={20} />
+                <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 pointer-events-none" size={20} />
             </div>
             </div> 
           </div>

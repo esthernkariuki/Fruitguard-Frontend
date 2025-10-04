@@ -11,12 +11,14 @@ import {
 } from "@heroicons/react/24/outline";
 import { usePathname } from "next/navigation";
 
+
 export default function AdminSidebar() {
   const pathname = usePathname();
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   const navItems = [
-    { id: "home", label: "Home", icon: HomeIcon, href: "/" },
+
+    { id: "home", label: "Home", icon: HomeIcon, href: "/home" },
     { id: "team", label: "Manage Team", icon: ChartBarIcon, href: "/team" },
     { id: "profile", label: "Profile", icon: UserIcon, href: "/profile" },
   ];

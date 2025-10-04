@@ -1,4 +1,4 @@
-const baseUrl = 'api/users';
+const baseUrl = 'api/user';
 
 export async function fetchFarmers() {
   try {

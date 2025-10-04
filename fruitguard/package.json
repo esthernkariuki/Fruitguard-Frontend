@@ -8,13 +8,6 @@
     "start": "next start",
     "lint": "eslint",
     "test": "jest"
-    
- 
-
-
-
-
-
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",

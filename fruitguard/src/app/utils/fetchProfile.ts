@@ -9,23 +9,11 @@ export async function fetchProfile(token: string) {
         Accept: "application/json",
       },
     });
-
     if (!response.ok) {
-      const contentType = response.headers.get("content-type");
-      let errorMessage = "Failed to fetch profile";
-
-      if (contentType && contentType.includes("application/json")) {
-        const errorJson = await response.json();
-        errorMessage = errorJson.message || errorMessage;
-      } else {
-        const errorText = await response.text();
-        errorMessage = errorText || errorMessage;
-      }
-      throw new Error(errorMessage);
+       throw new Error(`Failed to fetch profile: ${response.statusText}`);
     }
-
     return response.json();
-  } catch (error) {
-    throw new Error(error instanceof Error ? error.message : "Profile fetch failed");
+   } catch (error) {
+   throw new Error("Something went wrong while fetching the profile: " + (error as Error).message);
   }
 }

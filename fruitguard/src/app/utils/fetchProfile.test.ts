@@ -32,54 +32,20 @@ describe('fetchProfile', () => {
     expect(data).toEqual(mockData);
   });
 
-  it('throws error with JSON error message from response', async () => {
-    const errorJson = { message: 'Unauthorized access' };
+
+  it('throws error with statusText on not ok response', async () => {
     (fetch as jest.Mock).mockResolvedValueOnce({
       ok: false,
-      headers: {
-        get: (header: string) => header === 'content-type' ? 'application/json' : null,
-      },
-      json: jest.fn().mockResolvedValueOnce(errorJson),
+      statusText:'Unauthorized access',
     });
 
-    await expect(fetchProfile('invalidToken')).rejects.toThrow('Unauthorized access');
+    await expect(fetchProfile('invalidToken')).rejects.toThrow("Something went wrong while fetching the profile: Failed to fetch profile: Unauthorized access");
   });
 
-  it('throws error with plain text error message from response', async () => {
-    const errorText = 'Not found';
-    (fetch as jest.Mock).mockResolvedValueOnce({
-      ok: false,
-      headers: {
-        get: (header: string) => header === 'content-type' ? 'text/plain' : null,
-      },
-      text: jest.fn().mockResolvedValueOnce(errorText),
-    });
-
-    await expect(fetchProfile('Token')).rejects.toThrow('Not found');
-  });
-
-  it('throws default error message if no error message present', async () => {
-    (fetch as jest.Mock).mockResolvedValueOnce({
-      ok: false,
-      headers: {
-        get: () => null,
-      },
-      text: jest.fn().mockResolvedValueOnce(''),
-    });
-
-    await expect(fetchProfile('Token')).rejects.toThrow('Failed to fetch profile');
-  });
-
-  it('throws error from caught Error instance', async () => {
+  it('throws error on fetch failure', async () => {
     (fetch as jest.Mock).mockRejectedValueOnce(new Error('Network failure'));
 
-    await expect(fetchProfile('Token')).rejects.toThrow('Network failure');
-  });
-
-  it('throws  error for non-Error rejection', async () => {
-    (fetch as jest.Mock).mockImplementationOnce(() => Promise.reject('some error'));
-
-    await expect(fetchProfile('Token')).rejects.toThrow('Profile fetch failed');
+    await expect(fetchProfile('Token')).rejects.toThrow('Something went wrong while fetching the profile: Network failure');
   });
 });
 

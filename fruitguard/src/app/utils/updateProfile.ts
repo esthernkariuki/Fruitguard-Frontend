@@ -11,20 +11,10 @@ export async function updateProfile(token: string, data: FormData) {
     });
 
     if (!res.ok) {
-      let errorMsg = "Failed to update profile";
-      const contentType = res.headers.get("content-type");
-      if (contentType && contentType.includes("application/json")) {
-        const errorJson = await res.json();
-        errorMsg = errorJson.message ?? errorMsg;
-      } else {
-        const errorText = await res.text();
-        errorMsg = errorText || errorMsg;
-      }
-      throw new Error(errorMsg);
+      throw new Error(`Failed to update profile: ${res.statusText}`);
     }
-
-    return res.json();
+    return await res.json();
   } catch (error) {
-    throw new Error(error instanceof Error ? error.message : "Updating profile failed");
+    throw new Error("Something went wrong while updating the profile: " + (error as Error).message);
   }
 }

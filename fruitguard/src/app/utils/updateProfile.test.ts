@@ -1,3 +1,4 @@
+import { headers } from "next/headers";
 import { updateProfile } from "./updateProfile";
 
 const baseUrl = 'api/updateprofile';
@@ -13,7 +14,7 @@ describe('updateProfile', () => {
     it('sends PUT request and returns JSON response on success', async () => {
         const mockResponseData = { success: true };
         (fetch as jest.Mock).mockResolvedValueOnce({ ok: true, 
-            json: jest.fn().mockResolvedValueOnce(mockResponseData), headers: new Map(), 
+            json: jest.fn().mockResolvedValueOnce(mockResponseData),
         });
 
         const result = await updateProfile(token, mockFormData);
@@ -26,60 +27,22 @@ describe('updateProfile', () => {
         expect(result).toEqual(mockResponseData);
     });
 
-    it('handles null JSON response gracefully', async () => {
-        (fetch as jest.Mock).mockResolvedValueOnce({ok: true,
-            json: jest.fn().mockResolvedValueOnce(null),headers: new Map(), 
+    it('throws error with statusText on non-ok response', async () => {
+        (fetch as jest.Mock).mockResolvedValueOnce({ok: false,
+            statusText:'Bad Request',
+            headers:{get:()=> null},
+            json: jest.fn(), 
+            text:jest.fn(),
+    });
+        await expect(updateProfile(token, mockFormData)).rejects.toThrow("Something went wrong while updating the profile: Failed to update profile: Bad Request");
     });
 
-        const result = await updateProfile(token, mockFormData);
-        expect(result).toBeNull();
-    });
-
-    it('throws error with JSON error message from response', async () => {
-        const errorJson = { message: 'Invalid token' };
-        (fetch as jest.Mock).mockResolvedValueOnce({
-            ok: false,
-            headers: {
-                get: (header: string) => (header === 'content-type' ? 'application/json' : null),
-            },
-            json: jest.fn().mockResolvedValueOnce(errorJson),
-        });
-
-        await expect(updateProfile(token, mockFormData)).rejects.toThrow('Invalid token');
-    });
-
-    it('throws error with plain text error message from response', async () => {
-        const errorText = 'Unauthorized access';
-        (fetch as jest.Mock).mockResolvedValueOnce({
-            ok: false,
-            headers: {
-                get: (header: string) => (header === 'content-type' ? 'text/plain' : null),
-            },
-            text: jest.fn().mockResolvedValueOnce(errorText),
-        });
-
-        await expect(updateProfile(token, mockFormData)).rejects.toThrow('Unauthorized access');
-    });
-
-    it('throws default error message if no error message provided', async () => {
-        (fetch as jest.Mock).mockResolvedValueOnce({
-            ok: false,
-            headers: { get: () => null },
-            text: jest.fn().mockResolvedValueOnce(''),
-        });
-
-        await expect(updateProfile(token, mockFormData)).rejects.toThrow('Failed to update profile');
-    });
-
-    it('throws error from caught Error instance (network or other failure)', async () => {
+    it('throws error when fetch fails', async () => {
         (fetch as jest.Mock).mockRejectedValueOnce(new Error('Network failure'));
 
-        await expect(updateProfile(token, mockFormData)).rejects.toThrow('Network failure');
+        await expect(updateProfile(token, mockFormData)).rejects.toThrow("Something went wrong while updating the profile: Network failure");
     });
 
-    it('throws error if rejection is non-Error', async () => {
-        (fetch as jest.Mock).mockImplementationOnce(() => Promise.reject('some error'));
-
-        await expect(updateProfile(token, mockFormData)).rejects.toThrow('Updating profile failed');
-    });
+    
 });
+

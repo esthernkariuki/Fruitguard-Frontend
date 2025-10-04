@@ -26,7 +26,6 @@ export default function RootLayout({
       <body
         className={`${nunito.variable} font-nunito`}
       >
-        <AdminSidebar/>
         {children}
       </body>
     </html>

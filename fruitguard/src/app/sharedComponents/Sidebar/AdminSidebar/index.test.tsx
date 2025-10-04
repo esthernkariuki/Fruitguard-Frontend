@@ -19,7 +19,7 @@ describe("AdminSidebar", () => {
     expect(screen.getByText("Log out")).toBeInTheDocument();
   });
 
-<<<<<<< HEAD
+
   test("navigation links reflect active based on mocked pathname", () => {
   const { rerender } = render(<AdminSidebar />);
 
@@ -36,8 +36,7 @@ describe("AdminSidebar", () => {
   let profileLink = screen.getByText("Profile").closest("a");
   expect(profileLink).toHaveAttribute("aria-current", "page");
 });
-=======
->>>>>>> 05eed803fd1f71064afb8240133fe228ad23b27f
+
 
   test("clicking logout shows confirmation modal", () => {
     render(<AdminSidebar />);

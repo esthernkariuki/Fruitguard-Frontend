@@ -14,14 +14,34 @@ export default function useProfile(token: string) {
       setLoading(false);
       return;
     }
-    setLoading(true);
-    fetchProfile(token)
-      .then(setProfile)
-      .catch(err => setError(err.message || "Failed to load profile"))
-      .finally(() => setLoading(false));
-  }, [token]);
+
+    const fetchData=async () =>{
+      setLoading(true);
+      setError(null);
+
+      try{
+        const data=await fetchProfile(token);
+        if (!data){
+          throw new Error("Failed to load profile");
+        }
+        setProfile(data);
+      }
+      catch(error){
+        setError((error as Error).message|| "Failed to load profile");
+      }
+      finally{
+        setLoading(false);
+      }
+    };
+   fetchData(); 
+  },[token]);
+
 
   return { profile, loading, error };
 }
 
+
+  
+
+     
 

@@ -9,14 +9,17 @@ export async function GET(request: Request) {
 
 
    if (!response.ok) {
-      throw new Error(`Failed to fetch profile: ${response.statusText}`);}
+    const errorText = await response.text();
+       return new Response(`Failed to fetch profile: ${response.status} - ${errorText}`, {
+       status: response.status, });}
    const result = await response.json();
    return new Response(JSON.stringify(result), {status: 200,
      headers: {
        "Content-Type": "application/json" }, });}
     
  catch (error) {
-   return new Response((error as Error).message, {
-     status: 500, });
+   return new Response((error as Error).message, { status: 500, });
 }
 }
+
+  

@@ -12,7 +12,9 @@ export async function PUT(request: Request) {
 
    if (!res.ok) {
      const text = await res.text();
-     throw new Error(`Failed update: ${res.status} - ${text}`); }
+     return new Response(`Failed update: ${res.status} - ${text}`, {
+        status: res.status,
+      }); }
 
 
    const data = await res.json();

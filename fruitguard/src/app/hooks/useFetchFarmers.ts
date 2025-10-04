@@ -8,12 +8,20 @@ export function useFetchFarmers() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    const fetchData = async () => {
     setLoading(true);
-    fetchFarmers()
-      .then(setFarmers)
-      .catch(err => setError(err.message))
-      .finally(() => setLoading(false));
-  }, []);
-
-  return { farmers, loading, error };
+    setError(null);
+    try{
+      const data = await fetchFarmers();
+        if (!data) {throw new Error("Failed to fetch farmers");}
+        setFarmers(data);}
+    catch(error) {
+        setError((error as Error).message);}
+    finally {
+        setLoading(false);
+      }
+    };
+    fetchData();},[]);
+ return { farmers, loading, error };
 }
+

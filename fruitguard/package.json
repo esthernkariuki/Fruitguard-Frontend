@@ -2,11 +2,25 @@
   "name": "fruitguard",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
+      "test": "jest",
+  "test:watch": "jest --watch"
+  },
+  "dependencies": {
+    "next": "15.5.3",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-icons": "^5.5.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@testing-library/dom": "^10.4.1",
     "test": "jest"
   },
   "dependencies": {
@@ -36,6 +50,15 @@
     "jest-environment-jsdom": "^30.1.2",
     "jest-fetch-mock": "^3.0.3",
     "tailwindcss": "^4",
+    "ts-jest": "^29.4.4",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
+  },
+  "description": "This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
   }
-}
+
+  

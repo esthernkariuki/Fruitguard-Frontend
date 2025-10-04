@@ -13,27 +13,6 @@ describe("AdminSidebar", () => {
     expect(screen.getByText("Log out")).toBeInTheDocument();
   });
 
-  test("clicking navigation links changes active link", () => {
-    render(<AdminSidebar />);
-
-    const homeLink = screen.getByText("Home").closest("a");
-    const teamLink = screen.getByText("Manage Team").closest("a");
-    const profileLink = screen.getByText("Profile").closest("a");
-
-    expect(homeLink).toHaveAttribute("aria-current", "page");
-    expect(teamLink).not.toHaveAttribute("aria-current");
-    expect(profileLink).not.toHaveAttribute("aria-current");
-
-
-    fireEvent.click(teamLink!);
-    expect(teamLink).toHaveAttribute("aria-current", "page");
-    expect(homeLink).not.toHaveAttribute("aria-current");
-
- 
-    fireEvent.click(profileLink!);
-    expect(profileLink).toHaveAttribute("aria-current", "page");
-    expect(teamLink).not.toHaveAttribute("aria-current");
-  });
 
   test("clicking logout shows confirmation modal", () => {
     render(<AdminSidebar />);

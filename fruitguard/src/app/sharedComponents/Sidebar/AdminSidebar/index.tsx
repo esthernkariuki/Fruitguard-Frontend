@@ -10,12 +10,14 @@ import {
   ArrowLeftEndOnRectangleIcon,
 } from "@heroicons/react/24/outline";
 
+import { usePathname } from "next/navigation";
+
 export default function AdminSidebar() {
-  const [active, setActive] = useState("home");
+  const pathname = usePathname();
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   const navItems = [
-    { id: "home", label: "Home", icon: HomeIcon, href: "#" },
+    { id: "home", label: "Home", icon: HomeIcon, href: "/home" },
     { id: "team", label: "Manage Team", icon: ChartBarIcon, href: "/team" },
     { id: "profile", label: "Profile", icon: UserIcon, href: "/profile" },
   ];
@@ -47,12 +49,11 @@ export default function AdminSidebar() {
 
           <nav className="flex flex-col space-y-10 mb-28 justify-start mt-2">
             {navItems.map((item) => {
-              const isActive = active === item.id;
+              const isActive = pathname === item.href;
               return (
                 <Link
                   key={item.id}
                   href={item.href}
-                  onClick={() => setActive(item.id)}
                   className={`flex items-center gap-3 font-semibold border-b border-gray-400 pb-8 w-[85%]
                     hover:text-[#FFC661] transition-colors duration-200
                     ${isActive ? "text-[#FFC661]" : "text-white"}`}

@@ -5,7 +5,7 @@ export default function AdminLayout({
   children: React.ReactNode
 }) {
   return (
-    <div className="flex min-h-screen">
+    <div className="min-h-screen">
       <div className="flex-shrink-0 w-[350px]">
         <AdminSidebar/>
       </div>

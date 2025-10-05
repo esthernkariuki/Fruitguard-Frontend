@@ -1,7 +1,13 @@
+jest.mock("next/navigation", () => ({usePathname: jest.fn(),}));
 import { render, screen, fireEvent } from "@testing-library/react";
 import AdminSidebar from ".";
+import { usePathname } from "next/navigation";
 
 describe("AdminSidebar", () => {
+  const mockUsePathname = usePathname as jest.Mock;
+  beforeEach(() => {
+    mockUsePathname.mockReturnValue("/");
+  });
   test("renders sidebar with nav items and logout button", () => {
     render(<AdminSidebar />);
 
@@ -12,6 +18,24 @@ describe("AdminSidebar", () => {
     expect(screen.getByText("Profile")).toBeInTheDocument();
     expect(screen.getByText("Log out")).toBeInTheDocument();
   });
+
+
+  test("navigation links reflect active based on mocked pathname", () => {
+  const { rerender } = render(<AdminSidebar />);
+
+  let homeLink = screen.getByText("Home").closest("a");
+  expect(homeLink).toHaveAttribute("aria-current", "page");
+
+  mockUsePathname.mockReturnValue("/team");
+  rerender(<AdminSidebar />);
+  let teamLink = screen.getByText("Manage Team").closest("a");
+  expect(teamLink).toHaveAttribute("aria-current", "page");
+
+  mockUsePathname.mockReturnValue("/profile");
+  rerender(<AdminSidebar />);
+  let profileLink = screen.getByText("Profile").closest("a");
+  expect(profileLink).toHaveAttribute("aria-current", "page");
+});
 
 
   test("clicking logout shows confirmation modal", () => {

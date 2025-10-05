@@ -85,26 +85,26 @@ export default function AdminSidebar() {
       </aside>
 
       {showLogoutConfirm && (
-        <div className="fixed inset-0 bg-opacity-50 flex justify-center items-center z-50">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white rounded-lg shadow-lg p-8 w-100 text-center">
             <h2 className="text-xl font-semibold mb-6 text-[#683929]">
               Do you want to logout?
             </h2>
-            <div className="flex justify-center gap-6">
+            <div className="flex justify-center">
               <Button
                 buttonText="Cancel"
                 variant="secondary"
                 onClickHandler={() => setShowLogoutConfirm(false)}
-                className="hover:bg-[#683929] hover:text-white w-[88] h-[50] transition-colors duration-300"
+                className="hover:bg-[#683929] hover:text-white w-[88px] h-[50px]  mr-4 flex transition-colors duration-300"
               />
               <Link
-                href="/login"
+                href="/Login"
               >
                 <Button
                   buttonText="Proceed"
                   variant="default"
                   onClickHandler={handleLogoutProceed}
-                  className="w-[88] h-[50] hover:text-white hover:bg-[#683929] transition-colors duration-300 rounded flex justify-center items-center"
+                  className="w-[88px] h-[50px] hover:text-white hover:bg-[#683929] transition-colors duration-300 rounded flex justify-center items-center"
                 />
               </Link>
             </div>

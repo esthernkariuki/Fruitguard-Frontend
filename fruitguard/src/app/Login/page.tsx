@@ -80,9 +80,6 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
               {loading ? 'Logging In...' : 'Log In'}
             </button>
           </form>
-          <p className="mt-4 text-sm text-left text-xl">Don&apos;t have an account?{' '}
-            <Link href="/Register" className="text-yellow-950 font-bold hover:underline">Sign up</Link>
-          </p>
         </div>
       </div>
     </div>

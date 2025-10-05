@@ -91,7 +91,7 @@ export default function AdminSidebar() {
             <h2 className="text-xl font-semibold mb-6 text-[#683929]">
               Do you want to logout?
             </h2>
-            <div className="flex justify-center gap-6">
+            <div className="flex justify-center">
               <Button
                 buttonText="Cancel"
                 variant="secondary"

@@ -1,6 +1,6 @@
 import { fetchFarmers } from "./fetchFarmers"; 
 
-const baseUrl = 'api/users';
+const baseUrl = 'api/user';
 
 describe('fetchFarmers', () => {
   beforeEach(() => {

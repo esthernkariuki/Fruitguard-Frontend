@@ -15,7 +15,7 @@ interface FormData {
 }
 
 export default function Register() {
-  const { loading, error, register } = useFetchRegister();
+  const { loading, register } = useFetchRegister();
   const router = useRouter();
 
   const [formData, setFormData] = useState<FormData>({

@@ -6,6 +6,7 @@ import { updateProfile } from "../utils/updateProfile";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 import AdminLayout from "../sharedComponents/AdminLayout";
 import Button from "../sharedComponents/Button";
+import Image from "next/image";
 
 const token = process.env.NEXT_PUBLIC_API_TOKEN || "";
 
@@ -76,7 +77,7 @@ export default function profile() {
             <div className="flex flex-col md:flex-row gap-12 items-start w-full max-w-5xl">
                 <div className="flex flex-col items-center md:items-start md:w-1/3 w-full">
                   <div className="relative inline-block">
-                    <img src={previewImage || "/default-profile.png"} alt="Profile photo" className="rounded-full w-40 h-40 border-4 border-[#F5DBBC] object-cover"/>
+                    <Image src={previewImage || "/default-profile.png"} alt="Profile photo" className="rounded-full w-40 h-40 border-4 border-[#F5DBBC] object-cover"/>
                       <label htmlFor="profileImageInput" className="absolute bottom-0 right-0 bg-[#F5DBBC] rounded-full p-2 cursor-pointer"title="Edit profile image">
                         <HiOutlinePencilAlt className="h-6 w-6 text-yellow-500" />
                       </label>

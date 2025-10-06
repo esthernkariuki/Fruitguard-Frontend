@@ -46,7 +46,7 @@ describe("RegisterFarmerModal", () => {
 
   it("submits the form and calls onRegister and onClose on success", async () => {
     const apiResponse = {
-      id: 10, // Fixed syntax
+      id: 10, 
       first_name: "Peris",
       last_name: "Nduku",
       phone_number: "0722009900",

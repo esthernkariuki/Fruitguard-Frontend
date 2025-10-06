@@ -49,7 +49,7 @@ describe('useFetchRegister', () => {
       () => new Promise(resolve => setTimeout(() => resolve(mockResult), 100)));
     const { result } = renderHook(() => useFetchRegister());
 
-    let registerPromise: Promise<any>;
+    let registerPromise: Promise<unknown>;
     await act(async () => {
       registerPromise = result.current.register(userData);
     });

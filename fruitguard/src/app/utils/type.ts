@@ -1,5 +1,3 @@
-
-
 export interface Device {
     id: number;
     name: string;
@@ -14,7 +12,7 @@ export interface Agrovet {
     phone_number: string;
     location: string;
     number_of_traps: number;
-    devices?: any[];
+    devices?: unknown;
     name: string;
     phone: string;
     traps: number;

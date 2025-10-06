@@ -9,12 +9,12 @@ import useFetchLogin from '../hooks/useFetchLogin';
 interface FormData {email: string; password: string;}
 
 export default function Login() {
-  const {loading, error, login} = useFetchLogin();
+  const {loading,login} = useFetchLogin();
   const router = useRouter();
   const [formData, setFormData] = useState<FormData>({email: '',password: '',});
   const [showPassword, setShowPassword] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [formError, setFormError] = useState<string | null>(null);
+  const [formError] = useState<string | null>(null);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   const { name, value } = e.target;
   setFormData((prev) => ({...prev,[name]: value,}))};

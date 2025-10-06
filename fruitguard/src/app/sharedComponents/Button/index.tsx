@@ -6,9 +6,10 @@ interface ButtonProps {
   onClickHandler: () => void;
   icon?: ReactNode;
   className?: string; 
+  disabled?: boolean;
 }
 
-const Button = ({ buttonText, variant, onClickHandler, icon, className = '' }: ButtonProps) => {
+const Button = ({ buttonText, variant, onClickHandler, icon, className = '', disabled=false }: ButtonProps) => {
   const buttonVariants = () => {
     switch (variant) {
       case 'primary': return 'bg-[#FFF661] text-[#683929] border-none';
@@ -20,6 +21,7 @@ const Button = ({ buttonText, variant, onClickHandler, icon, className = '' }: B
   return (
     <button
       onClick={onClickHandler}
+       disabled={disabled}
       className={`${buttonVariants()}  cursor-pointer rounded flex items-center gap-3 justify-center ${className}`}
     >
       {icon}

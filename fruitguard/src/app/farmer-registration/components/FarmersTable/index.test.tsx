@@ -1,10 +1,32 @@
 import React from "react";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import * as useFetchUsersHook from "../../../hooks/useFetchUsers";
 import FarmersPage from "./";
 
+interface Farmer {
+  id: string;
+  first_name: string;
+  last_name: string;
+  phone_number: string;
+  number_of_traps: number;
+  location: string;
+  user_type: string;
+  devices?: unknown;
+}
+
+interface FarmerRegistrationProps {
+  onClose: () => void;
+  onRegister: (farmer: Farmer) => void;
+}
+
+interface FarmerDetailsProps {
+  farmer: Farmer;
+  onClose: () => void;
+}
+
 jest.mock("../FarmerRegistration", () => ({
-  default: ({ onClose, onRegister }: any) => (
+  __esModule: true,
+  default: ({ onClose, onRegister }: FarmerRegistrationProps) => (
     <div data-testid="register-farmer-modal">
       <button
         onClick={() => {
@@ -28,7 +50,8 @@ jest.mock("../FarmerRegistration", () => ({
 }));
 
 jest.mock("../FarmerDetails", () => ({
-  default: ({ farmer, onClose }: any) => (
+  __esModule: true,
+  default: ({ farmer, onClose }: FarmerDetailsProps) => (
     <div data-testid="farmer-details-modal">
       <div>{`${farmer.first_name} ${farmer.last_name}`}</div>
       <button onClick={onClose}>Close Details</button>
@@ -49,7 +72,7 @@ jest.mock("../../../hooks/useFetchDevice", () => ({
   })),
 }));
 
-const mockFarmers = [
+const mockFarmers: Farmer[] = [
   {
     id: "2",
     first_name: "Mary",

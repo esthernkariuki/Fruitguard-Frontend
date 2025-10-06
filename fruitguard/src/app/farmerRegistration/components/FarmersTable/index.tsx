@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
-import { useFetchUsers } from "../hooks/useFetchUsers";
-import RegisterFarmerModal from "./registerFarmer";
-import FarmerDetailsModal from "./farmerDetails";
+import { useFetchUsers } from "../../../hooks/useFetchUsers";
+import FarmerDetailsModal from "../FarmerDetails";
+import RegisterFarmerModal from "../FarmerRegistration";
 import {
     Table,
   TableContainer,
@@ -13,7 +13,6 @@ import {
   Paper,
   Button,
 } from "@mui/material";
-import { FaSearch } from "react-icons/fa";
 
 export interface Farmer {
   id: string;

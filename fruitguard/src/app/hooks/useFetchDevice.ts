@@ -1,16 +1,10 @@
 import { useEffect, useState } from "react";
 import { fetchDevices } from "../utils/fetchDevice";
+import { Devices } from "../utils/types/device";
 
-export interface Device {
-  device_id: number;
-  device_identifier: string;
-  status: string;
-  created_at: string;
-  user_id: number;
-}
 
 export function useFetchDevices() {
-  const [devices, setDevices] = useState<Device[]>([]);
+  const [devices, setDevices] = useState<Devices[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

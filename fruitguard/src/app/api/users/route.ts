@@ -1,52 +1,44 @@
 const baseUrl = process.env.BASE_URL;
-
-export async function GET() {
-  try {
-    const response = await fetch(`${baseUrl}/users`);
-    const result = await response.json();
-    return new Response(JSON.stringify(result), {});
-  } catch (error) {
-    return new Response((error as Error).message, {
-      status: 500,
-    });
-  }
+export async function GET(){
+    try{
+        const response = await fetch(`${baseUrl}/users/`);
+        const result = await response.json();
+        return new Response(JSON.stringify(result), {
+            status: 200,
+        });
+    }
+  catch (error) {
+  return new Response((error as Error).message, {
+    status: 500,
+  });
+}
 }
 
 export async function POST(request: Request) {
-  try {
-    if (!baseUrl) {
-      throw new Error("BASE_URL is not defined ");
-    }
-
-    let body;
-    try {
-      body = await request.json(); 
-    } catch (parseError) {
-      return new Response("Invalid JSON payload", { status: 400 });
-    }
-
-    const response = await fetch(`${baseUrl}/users/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
+  const body = await request.json();
+  const {first_name, last_name, phone_number, location, number_of_traps,user_type } = body;
+  if (!first_name || !last_name || !phone_number || !location || !number_of_traps||!user_type) {
+    return new Response("Missing required values: username,first_name,phone_number,email,device_id", {
+      status: 400
     });
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`Failed to create user: HTTP ${response.status} - ${errorText}`);
-    }
-
-    const newUser = await response.json();
-    return new Response(JSON.stringify(newUser), {
+  }
+  try {
+    const response = await fetch(`${baseUrl}/users/`, {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({first_name, last_name, phone_number, location, number_of_traps,user_type }),
+    });
+    const result = await response.json();
+    return new Response(JSON.stringify(result), {
       status: 201,
-      headers: { "Content-Type": "application/json" },
-      statusText: "User created successfully!",
+      headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
-    return new Response((error as Error).message, {
+    return new Response(JSON.stringify({ error: (error as Error).message }), {
       status: 500,
+      headers: { 'Content-Type': 'application/json' },
     });
   }
 }

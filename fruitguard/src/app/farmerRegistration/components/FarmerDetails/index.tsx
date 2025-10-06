@@ -1,8 +1,8 @@
-import { Farmer } from "../hooks/useFetchUsers";
+import { Farmer } from "../../../hooks/useFetchUsers";
 import { useState, useEffect } from "react";
-import AddDeviceModal from "./addDevice";
-import { useFetchDevices } from "../hooks/useFetchDevice";
-import { useFetchUsers } from "../hooks/useFetchUsers"; 
+import AddDeviceModal from "../AddDevice";
+import { useFetchDevices } from "../../../hooks/useFetchDevice";
+import { useFetchUsers } from "../../../hooks/useFetchUsers"; 
 
 interface Props {
   farmer: Farmer;

@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Farmer } from "../hooks/useFetchUsers";
+import { Farmer } from "../../../hooks/useFetchUsers";
 
 interface Props {
   onClose: () => void;

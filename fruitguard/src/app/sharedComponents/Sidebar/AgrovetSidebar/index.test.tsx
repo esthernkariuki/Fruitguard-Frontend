@@ -12,7 +12,7 @@ describe("AgrovetSidebar", () => {
   });
 
   test("renders sidebar with navigation items and logout button", () => {
-    (usePathname as jest.Mock).mockReturnValue("/dashboard");
+    (usePathname as jest.Mock).mockReturnValue("/farmer-registration");
     render(<AgrovetSidebar />);
 
     expect(screen.getByAltText("FruitGuard logo")).toBeInTheDocument();
@@ -23,7 +23,7 @@ describe("AgrovetSidebar", () => {
   });
 
   test("clicking navigation links changes active state", () => {
-    (usePathname as jest.Mock).mockReturnValue("/dashboard");
+    (usePathname as jest.Mock).mockReturnValue("/farmer-registration");
     const { rerender } = render(<AgrovetSidebar />);
 
     const homeLink = screen.getByRole("link", { name: /home/i });
@@ -40,7 +40,7 @@ describe("AgrovetSidebar", () => {
   });
 
   test("clicking logout shows confirmation modal", () => {
-    (usePathname as jest.Mock).mockReturnValue("/dashboard");
+    (usePathname as jest.Mock).mockReturnValue("/farmer-registration");
     render(<AgrovetSidebar />);
 
     expect(screen.queryByText("Do you want to logout?")).toBeNull();
@@ -52,7 +52,7 @@ describe("AgrovetSidebar", () => {
   });
 
   test("clicking cancel hides the logout confirmation modal", () => {
-    (usePathname as jest.Mock).mockReturnValue("/dashboard");
+    (usePathname as jest.Mock).mockReturnValue("/farmer-registration");
     render(<AgrovetSidebar />);
 
     fireEvent.click(screen.getByText("Log out"));
@@ -62,7 +62,7 @@ describe("AgrovetSidebar", () => {
   });
 
   test("proceed button links to /Login", () => {
-    (usePathname as jest.Mock).mockReturnValue("/dashboard");
+    (usePathname as jest.Mock).mockReturnValue("/farmer-registration");
     render(<AgrovetSidebar />);
 
     fireEvent.click(screen.getByText("Log out"));

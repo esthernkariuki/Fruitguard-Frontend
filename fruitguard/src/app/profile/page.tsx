@@ -10,7 +10,7 @@ import Image from "next/image";
 
 const token = process.env.NEXT_PUBLIC_API_TOKEN || "";
 
-export default function profile() {
+export default function Profile() {
   const {profile, loading, error } = useProfile(token);
   const [formData, setFormData] = useState({first_name: "", last_name: "", email: "",});
   const [profileImage, setProfileImage] = useState<File |null>(null);
@@ -77,7 +77,11 @@ export default function profile() {
             <div className="flex flex-col md:flex-row gap-12 items-start w-full max-w-5xl">
                 <div className="flex flex-col items-center md:items-start md:w-1/3 w-full">
                   <div className="relative inline-block">
-                    <Image src={previewImage || "/default-profile.png"} alt="Profile photo" className="rounded-full w-40 h-40 border-4 border-[#F5DBBC] object-cover"/>
+                    <Image src={previewImage || "/default-profile.png"} alt="Profile photo"
+                     className="rounded-full  border-4 border-[#F5DBBC] object-cover"
+                     width={40}
+                     height={40}
+                     />
                       <label htmlFor="profileImageInput" className="absolute bottom-0 right-0 bg-[#F5DBBC] rounded-full p-2 cursor-pointer"title="Edit profile image">
                         <HiOutlinePencilAlt className="h-6 w-6 text-yellow-500" />
                       </label>

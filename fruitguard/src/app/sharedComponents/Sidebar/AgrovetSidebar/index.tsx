@@ -8,13 +8,14 @@ import {
   UserIcon,
   ArrowLeftEndOnRectangleIcon,
 } from "@heroicons/react/24/outline";
+import { usePathname } from "next/navigation";
 
 export default function AgrovetSidebar() {
-  const [active, setActive] = useState("home");
+  const pathname = usePathname();
   const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   const navItems = [
-    { id: "home", label: "Home", icon: HomeIcon, href: "#" },
+    { id: "home", label: "Home", icon: HomeIcon, href: "/dashboard" },
     { id: "profile", label: "Profile", icon: UserIcon, href: "/profile" },
   ];
 
@@ -46,14 +47,11 @@ export default function AgrovetSidebar() {
 
           <nav className="flex flex-col space-y-10 justify-start ">
             {navItems.map((item) => {
-              const isActive = active === item.id;
+              const isActive = pathname === item.href
               return (
                 <Link
                   key={item.id}
                   href={item.href}
-                  onClick={() => {
-                  setActive(item.id);
-                  }}
                   className={`flex items-center gap-3 font-semibold border-b border-gray-400 pb-8 w-[85%]
                     hover:text-[#FFC661] transition-colors duration-200
                     ${isActive ? "text-[#FFC661]" : "text-white"}`}
@@ -84,7 +82,7 @@ export default function AgrovetSidebar() {
       </aside>
 
       {showLogoutConfirm && (
-        <div className="fixed inset-0 bg-opacity-50 flex justify-center items-center z-50">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white rounded-lg shadow-lg p-8 w-100 text-center">
             <h2 className="text-xl font-semibold mb-6 text-[#683929]">
               Do you want to logout?
@@ -94,16 +92,19 @@ export default function AgrovetSidebar() {
                 buttonText="Cancel"
                 variant="secondary"
                 onClickHandler={() => setShowLogoutConfirm(false)}
-                className="hover:bg-[#683929] hover:text-white w-[88] h-[50] transition-colors duration-300"
+                className="hover:bg-[#683929] hover:text-white w-[88px] h-[50px]  mr-4 flex transition-colors duration-300"
               />
-              <Link href="/login" className=" hover:bg-[#683929] transition-colors duration-300 rounded flex justify-center items-center">
+              <Link
+                href="/Login"
+              >
                 <Button
                   buttonText="Proceed"
                   variant="default"
                   onClickHandler={handleLogoutProceed}
-                  className="w-[88] h-[50]  hover:text-white "
+                  className="w-[88px] h-[50px] hover:text-white hover:bg-[#683929] transition-colors duration-300 rounded flex justify-center items-center"
                 />
               </Link>
+
             </div>
           </div>
         </div>

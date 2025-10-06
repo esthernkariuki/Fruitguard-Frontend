@@ -1,4 +1,4 @@
-const baseUrl = '/api/users';
+const baseUrl = '/api/farmers';
 export async function fetchUsers() {
  try {
    const response = await fetch(baseUrl);

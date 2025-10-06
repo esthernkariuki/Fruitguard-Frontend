@@ -29,24 +29,29 @@ describe('ProfilePage', () => {
     expect(screen.getByText(/Failed to load profile/i)).toBeInTheDocument();
   });
 
-  test('renders profile data correctly', () => {
+
+    test('renders profile data correctly', async () => {
     mockedUseProfile.mockReturnValue({
       profile: {
         first_name: 'Esther',
         last_name: 'Nyambura',
         email: 'esthernyambura@example.com',
-        profile_image: 'profile.jpg',
+        profile_image: '/profile.jpg',
         user_type: 'Agrovet',
       },
       loading: false,
       error: null,
     });
     render(<ProfilePage />);
-    expect(screen.getByText('Esther Nyambura')).toBeInTheDocument();
-    expect(screen.getByText('Agrovet')).toBeInTheDocument();
-    expect(screen.getByText('esthernyambura@example.com')).toBeInTheDocument();
-    expect(screen.getByAltText('Profile photo')).toHaveAttribute('src', 'profile.jpg');
+    await waitFor(() => {
+      expect(screen.getByText('Esther Nyambura')).toBeInTheDocument();
+      expect(screen.getByText('Agrovet')).toBeInTheDocument();
+      expect(screen.getByText('esthernyambura@example.com')).toBeInTheDocument();
+      const img = screen.getByAltText('Profile photo') as HTMLImageElement;
+      expect(img.src).toContain('profile.jpg');
+    });
   });
+
 
   test('renders correctly when some profile fields are null', () => {
     mockedUseProfile.mockReturnValue({

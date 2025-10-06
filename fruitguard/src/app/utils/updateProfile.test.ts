@@ -1,4 +1,4 @@
-import { headers } from "next/headers";
+
 import { updateProfile } from "./updateProfile";
 
 const baseUrl = 'api/updateprofile';

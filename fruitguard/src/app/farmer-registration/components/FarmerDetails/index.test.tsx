@@ -2,6 +2,12 @@ import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import FarmerDetailsModal from "./";
 
+
+interface AddDeviceProps {
+  onClose: () => void;
+  onAddDevice: () => void;
+}
+
 jest.mock("../../../hooks/useFetchDevice", () => ({
   useFetchDevices: jest.fn(),
 }));
@@ -12,7 +18,7 @@ jest.mock("../../../hooks/useFetchUsers", () => ({
 
 jest.mock("../AddDevice", () => ({
   __esModule: true,
-  default: ({ farmerId, onClose, onAddDevice }: any) => (
+  default: ({ onClose, onAddDevice }: AddDeviceProps) => (
     <div data-testid="add-device-modal">
       <button
         onClick={() => {
@@ -38,12 +44,12 @@ const mockDevices = [
   { device_id: 2, device_identifier: "ESP3200006780", status: "inactive", user_id: 2 },
 ];
 
-describe("FarmerDetailsModal", () => {
-  const mockUseFetchDevices = require("../../../hooks/useFetchDevice").useFetchDevices;
+import * as useFetchDeviceModule from "../../../hooks/useFetchDevice";
 
+describe("FarmerDetailsModal", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    mockUseFetchDevices.mockReturnValue({
+    (useFetchDeviceModule.useFetchDevices as jest.Mock).mockReturnValue({
       devices: mockDevices,
       loading: false,
       error: null,
@@ -52,7 +58,7 @@ describe("FarmerDetailsModal", () => {
   });
 
   it("shows loading state", () => {
-    mockUseFetchDevices.mockReturnValue({
+    (useFetchDeviceModule.useFetchDevices as jest.Mock).mockReturnValue({
       devices: [],
       loading: true,
       error: null,
@@ -63,7 +69,7 @@ describe("FarmerDetailsModal", () => {
   });
 
   it("shows error state", () => {
-    mockUseFetchDevices.mockReturnValue({
+    (useFetchDeviceModule.useFetchDevices as jest.Mock).mockReturnValue({
       devices: [],
       loading: false,
       error: "Failed to load",
@@ -74,7 +80,7 @@ describe("FarmerDetailsModal", () => {
   });
 
   it("shows 'No devices registered' if farmer has no devices", () => {
-    mockUseFetchDevices.mockReturnValue({
+    (useFetchDeviceModule.useFetchDevices as jest.Mock).mockReturnValue({
       devices: [],
       loading: false,
       error: null,
@@ -93,7 +99,7 @@ describe("FarmerDetailsModal", () => {
 
   it("shows AddDeviceModal when Add device is clicked, and hides after adding", async () => {
     const refetch = jest.fn();
-    mockUseFetchDevices.mockReturnValue({
+    (useFetchDeviceModule.useFetchDevices as jest.Mock).mockReturnValue({
       devices: mockDevices,
       loading: false,
       error: null,

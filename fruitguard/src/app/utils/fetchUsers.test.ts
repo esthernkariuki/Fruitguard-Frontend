@@ -1,6 +1,6 @@
 import { fetchUsers, addFarmers } from './fetchUsers'; 
 
-const baseUrl = '/api/users';
+const baseUrl = '/api/farmers';
 
 describe('Users API', () => {
   beforeEach(() => {

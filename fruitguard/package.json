@@ -2,7 +2,6 @@
   "name": "fruitguard",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "CHOKIDAR_USEPOLLING=true next dev",
     "build": "next build",
@@ -12,10 +11,13 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
+    "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@heroicons/react": "^2.2.0",
+    "@mui/icons-material": "^7.3.4",
     "@mui/material": "^7.3.4",
+    "@mui/material-nextjs": "^7.3.3",
     "@testing-library/user-event": "^14.6.1",
     "next": "15.5.3",
     "react": "19.1.0",

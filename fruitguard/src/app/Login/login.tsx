@@ -6,6 +6,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import useFetchLogin from '../hooks/useFetchLogin';
 import Image from 'next/image';
 
+
 interface FormData {
   email: string;
   password: string;

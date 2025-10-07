@@ -1,5 +1,7 @@
+const baseUrl = "/api/login";
 export async function fetchLogin(email: string, password: string) {
-  const response = await fetch("/api/login", {
+  try{
+  const response = await fetch(baseUrl, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ email, password }),
@@ -16,4 +18,13 @@ export async function fetchLogin(email: string, password: string) {
     localStorage.setItem("user_type", result.user_type);
   }
   return result;
-}
+}catch(error){
+  throw new Error("Failed to login: " + (error as Error).message);
+}};
+
+
+
+
+
+
+

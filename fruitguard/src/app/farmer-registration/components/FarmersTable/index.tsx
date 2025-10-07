@@ -53,7 +53,7 @@ export default function FarmersPage() {
   };
 
   return (
-    <div className="min-h-screen md:ml-80 pr-10 py-10">
+    <div className="min-h-screen md:ml-80 pr-10 py-7">
       <h1 className="text-[#7B3F30] text-[30px] font-bold mb-5">Farmer&apos;s Registration</h1>
       <div className="flex justify-between mb-6">
         <div className="relative w-90">

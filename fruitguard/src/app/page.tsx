@@ -5,6 +5,7 @@ import Link from "next/link";
 import Button from "./sharedComponents/Button";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import MqttSubscriber from "./hivemq/page";
 
 export default function Splash() {
     const router = useRouter();
@@ -24,6 +25,7 @@ export default function Splash() {
     const handleClick = () => { };
     return (
         <div className="min-h-screen">
+            <MqttSubscriber/>
             <div className="relative bg-[url('/images/trap.jpg')] bg-cover bg-center min-h-screen flex flex-col justify-center">
                 <div className="absolute inset-0 bg-[#683929]/70"></div>
                 <div className="relative flex flex-col items-center text-center px-4 sm:px-6 md:px-8 lg:px-10 max-w-4xl -mt-35 mx-auto">

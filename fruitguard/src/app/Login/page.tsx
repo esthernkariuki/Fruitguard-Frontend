@@ -5,10 +5,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import useFetchLogin from '../hooks/useFetchLogin';
 import Image from 'next/image';
 
-interface FormData {
-  email: string;
-  password: string;
-}
+interface FormData {email: string;password: string;}
 
 function SignInForm() {
   const { loading, error, login } = useFetchLogin();
@@ -44,9 +41,7 @@ function SignInForm() {
         router.push('/home');
       } else {
         router.push('/farmer-registration');
-      }
-    }
-  };
+      }}};
 
   return (
     <>
@@ -89,8 +84,7 @@ function SignInForm() {
               placeholder="Enter password"
               className="w-full p-2 border rounded pr-10 disabled:opacity-50"
               disabled={loading}
-              required
-            />
+              required/>
             <span
               className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer"
               onClick={() => setShowPassword(!showPassword)}
@@ -115,8 +109,7 @@ function SignInForm() {
         </button>
       </form>
     </>
-  );
-}
+  )};
 
 export default function SignInPage() {
   return (
@@ -136,7 +129,6 @@ export default function SignInPage() {
         </div>
       </div>
     </div>
-  );
-}
+  )};
 
 

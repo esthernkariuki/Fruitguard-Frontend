@@ -30,7 +30,7 @@ export default function Splash() {
 
                     <div className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg mb-8 mt-6 sm:mt-10 md:mt-14">
                         <Image
-                            src="/Images/fruitguard.png"
+                            src="/images/fruitguard.png"
                             alt="FruitGuard logo"
                             width={200}
                             height={150}

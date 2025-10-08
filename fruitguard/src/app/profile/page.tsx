@@ -4,13 +4,18 @@ import { useEffect,useState } from "react";
 import useProfile from "../hooks/useFetchProfile";
 import { updateProfile } from "../utils/updateProfile";
 import { HiOutlinePencilAlt } from "react-icons/hi";
-import AdminLayout from "../sharedComponents/AdminLayout";
 import Button from "../sharedComponents/Button";
 import Image from "next/image";
 
-const token = process.env.NEXT_PUBLIC_API_TOKEN || "";
 
 export default function Profile() {
+   const [token,setToken]=useState("")
+  useEffect(()=>{
+    const storedToken =localStorage.getItem("token");
+    if (storedToken){
+      setToken(storedToken);
+    }
+  },[]);
   const {profile, loading, error } = useProfile(token);
   const [formData, setFormData] = useState({first_name: "", last_name: "", email: "",});
   const [profileImage, setProfileImage] = useState<File |null>(null);
@@ -30,6 +35,10 @@ export default function Profile() {
    setFormData((oldData) => ({...oldData,[name]: value }));}
 
   async function handleSubmit(event: React.FormEvent) {event.preventDefault();
+     if (!token){
+      setUpdateError("No authorization token found")
+      return;
+    }
     setUpdating(true);
     setUpdateError(null);
     setUpdateSuccess(false);

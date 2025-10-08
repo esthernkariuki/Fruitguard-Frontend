@@ -82,7 +82,7 @@ export default function AgrovetSidebar() {
       </aside>
 
       {showLogoutConfirm && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+        <div className="fixed inset-0 bg-[#7B4F30]/70 flex justify-center items-center z-50">
           <div className="bg-white rounded-lg shadow-lg p-8 w-100 text-center">
             <h2 className="text-xl font-semibold mb-6 text-[#683929]">
               Do you want to logout?

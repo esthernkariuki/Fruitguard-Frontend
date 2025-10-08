@@ -46,7 +46,7 @@ function SignInForm() {
   return (
     <>
       <Image
-        src="/images/Group 239208.png"
+        src="/images/fruitguard-logo.png"
         alt="FruitGuard Logo"
         width={100}
         height={100}

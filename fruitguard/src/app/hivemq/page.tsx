@@ -12,7 +12,7 @@ const MqttSubscriber = () => {
       username: process.env.NEXT_PUBLIC_MQTT_USERNAME || '',
       password: process.env.NEXT_PUBLIC_MQTT_PASSWORD || '',
     };
-    const backendUrl = process.env.BASE_URL;
+    const backendUrl = process.env.NEXT_PUBLIC_BASE_URL;
     const client = mqtt.connect(broker, options);
 
     client.on('connect', () => {

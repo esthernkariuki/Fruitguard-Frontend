@@ -32,7 +32,7 @@ describe("AgrovetSidebar", () => {
     expect(homeLink).toHaveAttribute("aria-current", "page");
     expect(profileLink).not.toHaveAttribute("aria-current");
 
-    (usePathname as jest.Mock).mockReturnValue("/profile");
+    (usePathname as jest.Mock).mockReturnValue("/agrovet-profile");
     rerender(<AgrovetSidebar />);
 
     expect(profileLink).toHaveAttribute("aria-current", "page");

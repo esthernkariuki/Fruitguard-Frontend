@@ -66,7 +66,7 @@ export default function Profile() {
   }}, [updateSuccess]);
 
   return (
-    <AdminLayout>
+
     <div className="flex justify-end min-h-screen">
         <main className="w-4/5 px-35 flex flex-col justify-center items-center ml-30 font-nunito">
           <h1 className="text-[#7B4F36] text-2xl lg:text-3xl xl:text-3xl 2xl:text-4xl font-bold mb-15 -mt-4 text-left w-full">Profile</h1>
@@ -115,6 +115,6 @@ export default function Profile() {
               </div>)}
        </main>
      </div>
-     </AdminLayout>
+
   );
 }

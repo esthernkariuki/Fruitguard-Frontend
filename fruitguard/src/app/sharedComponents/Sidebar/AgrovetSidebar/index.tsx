@@ -16,7 +16,7 @@ export default function AgrovetSidebar() {
 
   const navItems = [
     { id: "home", label: "Home", icon: HomeIcon, href: "/farmer-registration" },
-    { id: "profile", label: "Profile", icon: UserIcon, href: "/profile" },
+    { id: "profile", label: "Profile", icon: UserIcon, href: "/agrovet-profile" },
   ];
 
   const handleLogoutProceed = () => {
@@ -32,7 +32,7 @@ export default function AgrovetSidebar() {
           <div className="flex flex-col items-center mb-10 lg:pb-8">
             <div className="w-30 h-12 mt-15 rounded-full flex items-center justify-center mb-3">
               <Image
-                src="/Images/fruitguard.png"
+                src="/images/fruitguard.png"
                 alt="FruitGuard logo"
                 width={800}
                 height={200}

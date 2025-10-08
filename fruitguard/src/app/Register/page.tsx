@@ -70,7 +70,7 @@ export default function Register() {
       </div>
       <div className="w-1/2 flex items-center justify-center">
         <div className="w-full max-w-md p-6">
-          <Image src="/images/Group239208.png"  alt="FruitGuard Logo" width={100} height={100} className="mx-auto mb-10" priority/>
+          <Image src="/images/Group 239208.png"  alt="FruitGuard Logo" width={100} height={100} className="mx-auto mb-10" priority/>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label htmlFor="first_name" className="block text-sm font-bold mb-1 text-xl">First Name</label>

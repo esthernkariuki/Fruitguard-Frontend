@@ -77,10 +77,10 @@ export default function Profile() {
             <div className="flex flex-col md:flex-row gap-12 items-start w-full max-w-5xl">
                 <div className="flex flex-col items-center md:items-start md:w-1/3 w-full">
                   <div className="relative inline-block">
-                    <Image src={previewImage || "/default-profile.png"} alt="Profile photo"
+                    <Image src={previewImage || "/images/ourimage.jpg"} alt="Profile photo"
                      className="rounded-full  border-4 border-[#F5DBBC] object-cover"
-                     width={40}
-                     height={40}
+                     width={200}
+                     height={200}
                      />
                       <label htmlFor="profileImageInput" className="absolute bottom-0 right-0 bg-[#F5DBBC] rounded-full p-2 cursor-pointer"title="Edit profile image">
                         <HiOutlinePencilAlt className="h-6 w-6 text-yellow-500" />

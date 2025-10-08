@@ -13,7 +13,7 @@ export default function Roles() {
         <div className="relative mb-12 mt-16 sm:mt-24 md:-mt-50">
           <div className="flex justify-center">
             <Image
-              src="/Images/fruitguard.png"
+              src="/images/fruitguard.png"
               alt="FruitGuard logo"
               width={150}
               height={80}

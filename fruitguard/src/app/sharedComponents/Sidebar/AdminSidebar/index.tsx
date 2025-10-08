@@ -20,7 +20,7 @@ export default function AdminSidebar() {
 
     { id: "home", label: "Home", icon: HomeIcon, href: "/home" },
     { id: "team", label: "Manage Team", icon: ChartBarIcon, href: "/team" },
-    { id: "profile", label: "Profile", icon: UserIcon, href: "/profile" },
+    { id: "profile", label: "Profile", icon: UserIcon, href: "/admin-profile" },
   ];
 
   const handleLogoutProceed = () => {
@@ -35,7 +35,7 @@ export default function AdminSidebar() {
           <div className="flex flex-col items-center mb-10">
             <div className="w-30 h-12 mt-15 rounded-full flex items-center justify-center mb-3">
               <Image
-                src="/Images/fruitguard.png"
+                src="/images/fruitguard.png"
                 alt="FruitGuard logo"
                 width={800}
                 height={200}
@@ -85,7 +85,7 @@ export default function AdminSidebar() {
       </aside>
 
       {showLogoutConfirm && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+        <div className="fixed inset-0 bg-[#7B4F30]/70 flex justify-center items-center z-50">
           <div className="bg-white rounded-lg shadow-lg p-8 w-100 text-center">
             <h2 className="text-xl font-semibold mb-6 text-[#683929]">
               Do you want to logout?

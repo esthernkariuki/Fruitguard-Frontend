@@ -33,7 +33,7 @@ describe("AdminSidebar", () => {
     const teamLink = screen.getByRole("link", { name: /manage team/i });
     expect(teamLink).toHaveAttribute("aria-current", "page");
 
-    mockUsePathname.mockReturnValue("/profile");
+    mockUsePathname.mockReturnValue("/admin-profile");
     rerender(<AdminSidebar />);
     const profileLink = screen.getByRole("link", { name: /profile/i });
     expect(profileLink).toHaveAttribute("aria-current", "page");

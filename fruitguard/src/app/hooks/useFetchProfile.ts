@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { fetchProfile } from "../utils/fetchProfile";
 import { Profile } from "../utils/types";
 
-export default function useProfile(token: string) {
+export default function useProfile(token: stringz) {
   const [profile, setProfile] = useState<Profile |null >(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

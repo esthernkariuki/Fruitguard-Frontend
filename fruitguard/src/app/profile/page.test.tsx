@@ -15,6 +15,12 @@ const mockedUpdateProfile = updateProfile as jest.Mock;
 describe('ProfilePage', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    jest.spyOn(Storage.prototype, 'getItem').mockImplementation((key) => {
+    if (key === 'token') {
+      return 'test-token';
+    }
+    return null;
+  });
   });
 
   test('shows loading state when loading profile', () => {
